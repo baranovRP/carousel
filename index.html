@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Carousel</title>
+
+  <style>
+    .slide-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: auto;
+    }
+
+    x-carousel {
+      width: 50%;
+      margin: auto;
+    }
+
+    .nav,
+    .slide-info {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+
+</head>
+<body>
+
+<section class="slide-box">
+  <x-carousel timeout="5">
+    <img src="http://loremflickr.com/1024/768/sun" alt="sun"/>
+    <img src="http://loremflickr.com/1024/768/sea,sun" alt="bw"/>
+    <img src="http://loremflickr.com/1024/768/sea" alt="sea"/>
+  </x-carousel>
+  <div class="slide-info">Show slide with index: <span class="slide-title">0</span></div>
+  <div class="nav">
+    <button class="btn  btn--play" disabled>Play</button>
+    <button class="btn  btn--pause">Pause</button>
+  </div>
+</section>
+
+<script src="js/main.js"></script>
+<script>
+  const carousel = document.querySelector('x-carousel');
+  const playBtn = document.querySelector('.btn--play');
+  const pauseBtn = document.querySelector('.btn--pause');
+  const slideTitle = document.querySelector('.slide-title');
+
+
+  carousel.addEventListener('slidechange', event => {
+    slideTitle.textContent = event.detail.currentSlide;
+    console.log(event)
+  });
+
+  carousel.addEventListener('started', event => {
+    console.log(event)
+  });
+
+  carousel.addEventListener('stopped', event => {
+    console.log(event)
+  });
+
+  playBtn.addEventListener('click', () => {
+    carousel.play();
+    playBtn.disabled = true;
+    pauseBtn.disabled = false;
+  });
+
+  pauseBtn.addEventListener('click', () => {
+    carousel.pause();
+    pauseBtn.disabled = true;
+    playBtn.disabled = false;
+  });
+</script>
+</body>
+</html>
